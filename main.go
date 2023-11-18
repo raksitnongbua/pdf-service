@@ -103,9 +103,10 @@ func main() {
 		fmt.Println("Error creating uploads directory:", err)
 		return
 	}
+
+
 	godotenv.Load(".env")
 	metredKey := os.Getenv("UNIDOC_METERED_LICENSE_KEY")
-	fmt.Println("ENV:" , metredKey)
 	license.SetMeteredKey(metredKey)
 
 	e := echo.New()
@@ -121,7 +122,7 @@ func main() {
 	e.GET("/api", func(c echo.Context) error {
 		return c.String(http.StatusOK, "api is ready!")
 	})
-
+	
 	e.POST("/api/unlock-pdf", uploadFileHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
